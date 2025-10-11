@@ -1,21 +1,325 @@
 
 "use client";
 import React from "react";
+import { motion } from "motion/react";
+import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 import { useRouter } from "next/navigation";
-import { SparklesCore } from "@/components/ui/sparkles";
-
-
+import { Timeline } from "@/components/ui/timeline";
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarSeparator,
-  MenubarShortcut,
-  MenubarTrigger,
-} from "@/components/ui/menubar"
-import { HoverEffect } from "../components/ui/card-hover-effect";
+  Navbar,
+  NavBody,
+  NavItems,
+  MobileNav,
+  NavbarLogo,
+  NavbarButton,
+  MobileNavHeader,
+  MobileNavToggle,
+  MobileNavMenu,
+} from "@/components/ui/resizable-navbar";
+import { useState } from "react";
+export function HeroHighlightDemo() {
+  const words = [
+    {
+      text: "powered",
+      className: "text-blue-500 dark:text-blue-500",
+    },
+      {
+      text: " by ",
+      className: "text-blue-500 dark:text-blue-500",
+    },
+      {
+      text: "AI,",
+      className: "text-blue-500 dark:text-blue-500",
+    },
 
+    {
+      text: "communicate",
+    },
+    {
+      text: "instantly",
+    },
+    {
+      text: "with",
+    },
+        {
+      text: "email",
+    },
+        {
+      text: "notifications",
+    },
+  ];
+return (
+  <HeroHighlight>
+    <motion.h1
+      initial={{
+        opacity: 0,
+        y: 20,
+      }}
+      animate={{
+        opacity: 1,
+        y: [20, -5, 0],
+      }}
+      transition={{
+        duration: 0.5,
+        ease: [0.4, 0.0, 0.2, 1],
+      }}
+      className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-neutral-700 dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto"
+    >
+      Manage your SAP Cloud Integration with ease. Access{" "}
+      <br />
+      <Highlight className="text-black dark:text-white">
+        Odata API's for Cloud Integration
+      </Highlight>
+      <br />
+      <span className="text-neutral-500 dark:text-neutral-400 text-sm">
+        <TypewriterEffect words={words} />
+        
+      </span>
+    </motion.h1>
+  </HeroHighlight>
+);
+}
+export function NavbarDemo() {
+  const navItems = [
+    {
+      name: "Features",
+      link: "#features",
+    },
+    {
+      name: "Team",
+      link: "#team",
+    },
+    {
+      name: "Contact",
+      link: "#contact",
+    },
+  ];
+ 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+ 
+  return (
+    <div className="relative w-full">
+      <Navbar>
+        {/* Desktop Navigation */}
+        <NavBody>
+          <NavbarLogo />
+          <NavItems items={navItems} />
+          <div className="flex items-center gap-4">
+            <NavbarButton variant="secondary" href="/login">Login</NavbarButton>
+            <NavbarButton variant="primary" href="#book-a-call">Register</NavbarButton>
+          </div>
+        </NavBody>
+ 
+        {/* Mobile Navigation */}
+        <MobileNav>
+          <MobileNavHeader>
+            <NavbarLogo />
+            <MobileNavToggle
+              isOpen={isMobileMenuOpen}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            />
+          </MobileNavHeader>
+ 
+          <MobileNavMenu
+            isOpen={isMobileMenuOpen}
+            onClose={() => setIsMobileMenuOpen(false)}
+          >
+            {navItems.map((item, idx) => (
+              <a
+                key={`mobile-link-${idx}`}
+                href={item.link}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="relative text-neutral-600 dark:text-neutral-300"
+              >
+                <span className="block">{item.name}</span>
+              </a>
+            ))}
+            <div className="flex w-full flex-col gap-4">
+              <NavbarButton
+                onClick={() => setIsMobileMenuOpen(false)}
+                variant="primary"
+                className="w-full"
+              >
+                Login
+              </NavbarButton>
+              <NavbarButton
+                onClick={() => setIsMobileMenuOpen(false)}
+
+                variant="primary"
+                className="w-full"
+              >
+                Book a call
+              </NavbarButton>
+            </div>
+          </MobileNavMenu>
+        </MobileNav>
+      </Navbar>
+      <DummyContent />
+ 
+      {/* Navbar */}
+    </div>
+  );
+}
+export function TimelineDemo() {
+  const data = [
+    {
+      title: "Integration Content",
+      content: (
+        <div>
+          <p  className="mb-8 text-base font-normal text-black md:text-lg dark:text-neutral-200">
+            Access Integration Artifacts . Deploy and Undeploy Integration artifacts
+          </p>
+          <div className="grid grid-cols-2 gap-4">
+            <img
+              src="https://assets.aceternity.com/templates/startup-1.webp"
+              alt="startup template"
+              width={500}
+              height={500}
+              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
+            />
+            <img
+              src="https://assets.aceternity.com/templates/startup-2.webp"
+              alt="startup template"
+              width={500}
+              height={500}
+              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
+            />
+            <img
+              src="https://assets.aceternity.com/templates/startup-3.webp"
+              alt="startup template"
+              width={500}
+              height={500}
+              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
+            />
+            <img
+              src="https://assets.aceternity.com/templates/startup-4.webp"
+              alt="startup template"
+              width={500}
+              height={500}
+              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
+            />
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Message Processing Logs",
+      content: (
+        <div>
+          <p className="mb-8 text-base font-normal text-black md:text-lg dark:text-neutral-200">
+        Message processing logs enable you to store data about the messages processed on a tenant and - for each processed message - information about the individual processing steps.
+          </p>
+
+          <div className="grid grid-cols-2 gap-4">
+            <img
+              src="https://assets.aceternity.com/pro/hero-sections.png"
+              alt="hero template"
+              width={500}
+              height={500}
+              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
+            />
+            <img
+              src="https://assets.aceternity.com/features-section.png"
+              alt="feature template"
+              width={500}
+              height={500}
+              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
+            />
+            <img
+              src="https://assets.aceternity.com/pro/bento-grids.png"
+              alt="bento template"
+              width={500}
+              height={500}
+              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
+            />
+            <img
+              src="https://assets.aceternity.com/cards.png"
+              alt="cards template"
+              width={500}
+              height={500}
+              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
+            />
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Security Content",
+      content: (
+        <div>
+          <p className="mb-4 text-base font-normal text-black md:text-lg dark:text-neutral-200">
+            Security content enables you to get, write or delete various security content. Depending on the kind of connection, the applied authorization and authentication options, and the direction of the request (either inbound or outbound), different kind of security content needs to be created and deployed on the tenant. You can manage the user credentials as follows:
+          </p>
+
+          <div className="grid grid-cols-2 gap-4">
+            <img
+              src="https://assets.aceternity.com/pro/hero-sections.png"
+              alt="hero template"
+              width={500}
+              height={500}
+              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
+            />
+            <img
+              src="https://assets.aceternity.com/features-section.png"
+              alt="feature template"
+              width={500}
+              height={500}
+              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
+            />
+            <img
+              src="https://assets.aceternity.com/pro/bento-grids.png"
+              alt="bento template"
+              width={500}
+              height={500}
+              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
+            />
+            <img
+              src="https://assets.aceternity.com/cards.png"
+              alt="cards template"
+              width={500}
+              height={500}
+              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
+            />
+          </div>
+        </div>
+      ),
+    },
+  ];
+  return (
+    <div className="relative w-full overflow-clip">
+      <Timeline data={data} />
+    </div>
+  );
+}
+const DummyContent = () => {
+  return (
+    <div className="container mx-auto p-4 pt-8">
+      <HeroHighlightDemo />
+      <div className=" h-px w-full bg-neutral-200 dark:bg-neutral-800" />
+      <TimelineDemo />
+      <div className="flex flex-col items-center justify-center mt-16 mb-16">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold mb-4 text-black dark:text-white">
+            Contact us At 
+          </h2>
+          <p className="text-neutral-600 dark:text-neutral-400 mb-8">
+            Shivam.tripathi2@ltimindtree.com 
+          </p>
+
+          <button className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition">
+            Get in Touch 
+          </button>
+          <p className="text-neutral-600 dark:text-neutral-400 mb-8">
+          Address : LTI Mindtree, Navi Mumbai, Maharashtra, India - 400709
+          SAPians 
+          </p>
+        </div>
+
+      </div>
+    </div>
+  );
+};
 export default function SparklesPreview() {
   const router = useRouter();
 
@@ -62,108 +366,9 @@ export default function SparklesPreview() {
     },
   ];
 
-  return (
-    <div 
-      className="min-h-screen w-full bg-black flex flex-col overflow-hidden dark"
-      style={{ 
-        minHeight: '100vh', 
-        width: '100%', 
-        backgroundColor: '#000000',
-        display: 'flex',
-        flexDirection: 'column',
-        overflow: 'hidden'
-      }}
-    >
-      {/* Full width flex container for menubar */}
-      <div 
-        className="fixed top-4 left-0 w-full flex justify-center items-center z-50" 
-        style={{ 
-          position: 'fixed', 
-          top: '1rem',
-          left: 0,
-          width: '100%', 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center',
-          zIndex: 50,
-          pointerEvents: 'auto'
-        }}
-      >
-        <div style={{ position: 'relative', zIndex: 51 }}>
-          <Menubar className="dark:bg-gray-900/90 dark:border-gray-700 dark:text-white bg-white border-gray-200 text-gray-900 backdrop-blur-sm ">
-            <MenubarMenu>
-            <MenubarTrigger 
-              className="dark:text-white dark:hover:bg-gray-800 cursor-pointer" 
-              onClick={handleLoginClick}
-            >
-              Login
-            </MenubarTrigger>
-
-          </MenubarMenu>
-          <MenubarMenu>
-            <MenubarTrigger 
-              className="dark:text-white dark:hover:bg-gray-800 cursor-pointer" 
-              onClick={handleLoginClick}
-            >
-              Sign Up
-            </MenubarTrigger>
-            
-          </MenubarMenu>
-          <MenubarMenu>
-            <MenubarTrigger className="dark:text-white dark:hover:bg-gray-800">Team</MenubarTrigger>
-            <MenubarContent className="dark:bg-gray-900 dark:border-gray-700">
-              <MenubarItem className="dark:text-white dark:hover:bg-gray-800">Shivam Tripathi</MenubarItem>
-              <MenubarItem className="dark:text-white dark:hover:bg-gray-800">Ankita</MenubarItem>
-              <MenubarItem className="dark:text-white dark:hover:bg-gray-800">Niranjan Yadav</MenubarItem>
-
-            </MenubarContent>
-          </MenubarMenu>
-        </Menubar>
-        </div>
-      </div>
-
-      {/* Main content centered in remaining space */}
-      <div className="flex-1 flex flex-col items-center justify-start pt-20" style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', paddingTop: '5rem' }}>
-        <h1 
-          className="md:text-7xl text-3xl lg:text-9xl font-bold text-center text-white relative z-20 mb-8"
-          style={{
-            fontSize: 'clamp(2rem, 8vw, 6rem)',
-            fontWeight: 'bold',
-            textAlign: 'center',
-            color: '#ffffff',
-            position: 'relative',
-            zIndex: 20,
-            marginBottom: '2rem'
-          }}
-        >
-          Integration Content
-        </h1>
-        <div className="w-[40rem] h-40 relative mb-16" style={{ width: '40rem', height: '10rem', position: 'relative', marginBottom: '4rem' }}>
-          {/* Gradients */}
-          <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
-          <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
-          <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
-          <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
-
-          {/* Core component */}
-          <SparklesCore
-            background="transparent"
-            minSize={0.4}
-            maxSize={1}
-            particleDensity={1200}
-            className="w-full h-full"
-            particleColor="#FFFFFF"
-          />
-
-          {/* Radial Gradient to prevent sharp edges */}
-          <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
-        </div>
-        
-        {/* Cards section after sparkling effect */}
-        <div className="max-w-5xl mx-auto px-8">
-          <HoverEffect items={projects} />
-        </div>
-      </div>
+  return (  
+    <div>
+      <NavbarDemo />
       
     </div>
   );

@@ -115,72 +115,8 @@ export default function DashboardComponent() {
   }
 ];
 
-  useEffect(() => {
-    // Get data from localStorage
-    const storedUsername = localStorage.getItem('username');
-    const storedToken = localStorage.getItem('token');
-    
-    if (!storedUsername || !storedToken) {
-      // If no valid session, redirect to login
-      router.push('/login');
-      return;
-    }
-     const fetchData = async () => {
-          try {
-            const username = localStorage.getItem('username');
-            const token = localStorage.getItem('token');
-            
-            const response = await fetch('/api/integration-artifacts', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                username: username,
-                token: token,
-              }),
-            });
-            
-            const xmlText = await response.text();  
 
-            
-            // Parse XML and extract runtime artifacts data
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(xmlText, "application/xml");
-            const entries = xmlDoc.getElementsByTagName('m:properties');
-
-            var started=0;
-            var error=0
-            for (let i = 0; i < entries.length; i++) {
-              const id = entries[i].getElementsByTagName('d:Id')[0]?.textContent || '';
-              const name = entries[i].getElementsByTagName('d:Name')[0]?.textContent || '';
-              const version = entries[i].getElementsByTagName('d:Version')[0]?.textContent || '';
-              const Type = entries[i].getElementsByTagName('d:Type')[0]?.textContent || '';
-              const DeployedBy = entries[i].getElementsByTagName('d:DeployedBy')[0]?.textContent || '';
-              const DeployedOn = entries[i].getElementsByTagName('d:DeployedOn')[0]?.textContent || '';
-              const Status = entries[i].getElementsByTagName('d:Status')[0]?.textContent || '';
-              if(Status==="STARTED") started=started+1;
-              if(Status==="ERROR") error=error+1;
-            }
-
-
-            setStarted(started);
-            setError(error);
-            setTic(localStorage.getItem("totalic") || "0");
-            // also store started and error count in localstorage
-            localStorage.setItem('started', started.toString());
-            localStorage.setItem('error', error.toString());
-
-          } catch (error) {
-            console.error('Error:', error);
-          }
-        };
-        
-        fetchData();
-    setUsername(storedUsername);
-    setToken(storedToken);
-  }, []);
-  useEffect(() => { 
+ /*  useEffect(() => { 
          const fetchData = async () => {
           try {
             const username = localStorage.getItem('username');
@@ -216,41 +152,16 @@ export default function DashboardComponent() {
           }
         };
         fetchData();
-  },[])
+  },[]) */
 
   return (
-    <div className="relative w-full min-h-screen">
+    <div className="relative w-full min-h-screen justify-center-safe ml-20">
       <Navbar className="top-2" />
       
       {/* Main content container with top padding for navbar */}
       <div className="pt-20 px-4 mt-11 ">
         {/* Flex row container */}
-        <div className="flex flex-row gap-8  max-w-5xl mx-auto items-center ">
-              <BentoGrid className="max-w-4xl mx-auto">
-            {items.map((item, i) => (
-                <BentoGridItem
-                key={i}
-                    title={item.title}
-                    description={item.description}
-                    header={item.header}
-                    icon={item.icon}
-                    className={i === 3 || i === 6 ? "md:col-span-1" : "md:col-span-1"}
-                />
-            ))}
-            </BentoGrid>
-          {/* First div - flex column */}
-          <div className="flex flex-col flex-1 space-y-4">
-            {/* Content for first column goes here */}
-            
-          </div>
-          
-          {/* Second div - for your content */}
-          <div className="flex-1">
-            {/* You can add your content here */}
-            
-          </div>
-
-        </div>
+    
       </div>
         <DemoPage/>
     </div>

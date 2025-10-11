@@ -23,7 +23,7 @@ export default function LoginLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen bg-black dark">
+    <div className="min-h-screen bg-white ">
       {children}
     </div>
   );
