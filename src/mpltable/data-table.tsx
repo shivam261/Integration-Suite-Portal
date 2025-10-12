@@ -67,39 +67,39 @@ export function DataTable<TData, TValue>({
   return (
      <div>
        <div className="flex items-center py-4">
+         <Input
+   placeholder="Filter Name"
+   value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+   onChange={(event) =>
+     table.getColumn("name")?.setFilterValue(event.target.value)
+   }
+   className="max-w-sm m-1"
+ />
         <Input
-          placeholder="Filter Mode"
-          value={(table.getColumn("mode")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter Type"
+          value={(table.getColumn("type")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("mode")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm m-1"
-        />
-                <Input
-          placeholder="Filter Name"
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm m-1"
-        />
-                <Input
-          placeholder="Filter Created On"
-          value={(table.getColumn("date")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("date")?.setFilterValue(event.target.value)
+            table.getColumn("type")?.setFilterValue(event.target.value)
           }
           className="max-w-sm m-1"
         />
          <Input
-          placeholder="Filter Version"
-          value={(table.getColumn("version")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter Log Level"
+          value={(table.getColumn("loglevel")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("version")?.setFilterValue(event.target.value)
+            table.getColumn("loglevel")?.setFilterValue(event.target.value)
           }
           className="max-w-sm m-1"
         />
 
+          <Input
+    placeholder="Filter Status"
+    value={(table.getColumn("status")?.getFilterValue() as string) ?? ""}
+    onChange={(event) =>
+      table.getColumn("status")?.setFilterValue(event.target.value)
+    }
+    className="max-w-sm m-1"
+  />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { HoveredLink, Menu, MenuItem, ProductItem } from "@/components/ui/navbar-menu";
 import { cn } from "@/lib/utils";
-import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+
 
 import {
   IconArrowWaveRightUp,
@@ -15,80 +15,14 @@ import {
   IconSignature,
   IconTableColumn,
 } from "@tabler/icons-react";
-import { RuntimeArtifacts } from "@/radtable/columns";
-import DemoPage from "@/radtable/page";
-interface User {
-  username: string;
-  password: string;
-}
-function Navbar({ className }: { className?: string }) {
-  const [active, setActive] = useState<string | null>(null);
-  const [users, setUsers] = useState<User[] | null>([{ username: "shviam", password: "shivam" },{ username: "john", password: "doe" },{ username: "jane", password: "doe" }]);    
-  return (
-    <div
-      className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50 ", className)}
-    >
-      <Menu setActive={setActive}>
-        <MenuItem setActive={setActive} active={active} item="Features">
-          <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="#">Deployment</HoveredLink>
-            <HoveredLink href="#">Creation</HoveredLink>
-            <HoveredLink href="#">Modification</HoveredLink>
-            <HoveredLink href="#">download artifacts</HoveredLink>
-            <HoveredLink href="#">Send Notification</HoveredLink>
-          </div>
-        </MenuItem>
-        <MenuItem setActive={setActive} active={active} item="Services">
-          <div className="  text-sm grid grid-cols-1gap-10 p-4 space-y-10">
-            <ProductItem
-              title="Integration Content"
-              href="https://algochurn.com"
-              src="https://assets.aceternity.com/demos/algochurn.webp"
-              description="Integration content enables you to read, update, deploy, or undeploy integration artifacts (such as integration flows) on a tenant.
- "
-            />
-            <ProductItem
-              title="Security Content"
-              href="https://tailwindmasterkit.com"
-              src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
-              description="Security content enables you to get, write or delete various security content.  "
-            />
-            <ProductItem
-              title="Message Processing Logs"
-              href="#"
-              src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.51.31%E2%80%AFPM.png"
-              description="enable you to store data about the messages processed on a tenant."
-            />
 
-          </div>
-        </MenuItem>
 
-        <MenuItem setActive={setActive} active={active} item="Account">
-          <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/">Logout</HoveredLink>
-            <HoveredLink href="#">Settings</HoveredLink>
-            <HoveredLink href="#">Profile</HoveredLink>
-          </div>
-        </MenuItem>
-                <MenuItem setActive={setActive} active={active} item="Switch Account">
-          <div className="flex flex-col space-y-4 text-sm">
-            {users && users.map((user) => (
-              <HoveredLink key={user.username} href="#">{user.username}</HoveredLink>
-            ))}
+import MPLTable from "@/mpltable/page";
 
-            <HoveredLink href="/dashboard/settings"><span className="text-blue-900 font-bold">ADD SUBACCOUNT</span></HoveredLink>
-          </div>
-        </MenuItem>
-      </Menu>
-    </div>
-  );
-}
 
-const Skeleton = () => (
-  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"></div>
-);
 
-export default function DashboardComponent() {
+
+export default function MPLComponent() {
 
   const router = useRouter();
   const [username, setUsername] = useState<string>('');
@@ -179,7 +113,7 @@ export default function DashboardComponent() {
         {/* Flex row container */}
     
       </div>
-        <DemoPage/>
+        <MPLTable />
 </>
   );
 }

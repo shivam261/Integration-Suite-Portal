@@ -17,15 +17,13 @@ import {
 // need to add  name and version fields
 export type IntegrationPg = {
   id: string
-  date: string// created on 
-  mode : string
-  modifiedby : string
-  createdby : string
+  status: string
+  type : string
   name: string// name
-  version: string// version
+  guid: string// version
+  loglevel: string
+  pakageId: string
 
-  shorttext?: string | ''
-  resourceId: string | ''
 }
 
 
@@ -69,14 +67,14 @@ export const columns: ColumnDef<IntegrationPg>[] = [
 
   },
   {
-    accessorKey: "mode",
+    accessorKey: "type",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Mode
+          Type
           <ArrowUpDown className=" " />
         </Button>
       )
@@ -86,18 +84,18 @@ export const columns: ColumnDef<IntegrationPg>[] = [
   },
 
   {
-    accessorKey: "version",
-    header: "Version",
+    accessorKey: "status",
+    header: "Status",
   },
   {
-    accessorKey: "createdby",
+    accessorKey: "loglevel",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Created BY
+          Log Level
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
@@ -105,27 +103,7 @@ export const columns: ColumnDef<IntegrationPg>[] = [
     
   
   },
-  {
-    accessorKey: "date",
-    header: ({ column }) => <div className="text-right"><Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Created On
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button></div>,
-    cell: ({ row }) => {
-      const date:string = (row.getValue("date")as string);
-      // date is in 1757311630754
-      // convert it to normal date
-      const formatted = new Date(parseInt(date)).toLocaleDateString().split('/').reverse().join('-');
-      // date in yyyy-mm-dd
-      // const formatted = new Date(parseInt(date)).toISOString().slice(0, 10);
-      // const formatted = date.toString().slice(0, 10);
-
-      return <div className="text-right font-medium">{formatted}</div>
-    },
-  },
+ 
     {
     id: "actions",
     cell: ({ row }) => {
@@ -142,20 +120,16 @@ export const columns: ColumnDef<IntegrationPg>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => navigator.clipboard.writeText(payment.guid)}
             >
-              Copy Version ID
+              Copy guid ID
             </DropdownMenuItem>
-                        <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.resourceId)}
-            >
-              Copy Resource ID
-            </DropdownMenuItem>
+
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem>created by: {payment.createdby}</DropdownMenuItem>
-            <DropdownMenuItem>modified by: {payment.modifiedby}</DropdownMenuItem>
-            <DropdownMenuItem>Short text: {payment.shorttext}</DropdownMenuItem>
+            <DropdownMenuItem>Package Id {payment.pakageId}</DropdownMenuItem>
+
+
           </DropdownMenuContent>
         </DropdownMenu>
       )
