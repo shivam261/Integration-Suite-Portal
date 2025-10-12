@@ -31,7 +31,7 @@ export function Navbar({ className }: { className?: string }) {
           const result = await response.json();
           
           
-          if (result.success) {
+          if (result) {
             setUsers(result.users);
           } else {
             console.error('Failed to fetch users:', result.message);
@@ -48,7 +48,48 @@ export function Navbar({ className }: { className?: string }) {
     }
 
 
-  },[])   
+  },[])
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
+  const handleSwitchUser = async (user: User) => {
+ try {
+      setIsLoading(true);
+      setError('');
+
+      const response = await fetch('http://localhost:8000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: user.username,
+          password: user.password,
+        }),
+      });
+
+      if (response.status === 200) {
+        const data = await response.json();
+        localStorage.setItem('username', user.username);
+        localStorage.setItem('password', user.password);
+        localStorage.setItem('organization', data.organization);
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+          // navigate to dashboard and reload the page
+          window.location.href = '/dashboard';
+          window.location.reload();
+        }
+
+      } else {
+        const errorData = await response.json().catch(() => ({ message: 'Login failed' }));
+        setError(errorData.message || `Login failed with status ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setError('Network error. Please check your connection and try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  }   
   return (
     <div
       className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50 ", className)}
@@ -91,14 +132,14 @@ export function Navbar({ className }: { className?: string }) {
         <MenuItem setActive={setActive} active={active} item="Account">
           <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="/">Logout</HoveredLink>
-            <Link href="/dashboard/settings">Settings</Link>
+            <Link href="/dashboard/manage">Settings</Link>
             <HoveredLink href="#">Profile</HoveredLink>
           </div>
         </MenuItem>
                 <MenuItem setActive={setActive} active={active} item="Switch Account">
           <div className="flex flex-col space-y-4 text-sm">
             {users && users.map((user) => (
-              <HoveredLink key={user.username} href="#">{user.username}</HoveredLink>
+              <HoveredLink key={user.username} href="#"><button onClick={() => handleSwitchUser(user)}>{user.username}</button></HoveredLink>
             ))}
 
             <HoveredLink href="/dashboard/manage"><span className="text-blue-900 font-bold">ADD SUBACCOUNT</span></HoveredLink>

@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/sidebar"
 import ColourfulText from "@/components/ui/colourful-text";
 import { motion } from "motion/react";
-import { Calendar, ChevronDown, ChevronUp, Home, Inbox, Lock, Search, Settings, User2 } from "lucide-react"
+import { Calendar, ChevronDown, ChevronUp, Home, Inbox, Loader, Lock, Map, Package, Search, Settings, User2 } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu"
 import { Separator } from "@radix-ui/react-separator"
 import { HeroHighlight } from "./ui/hero-highlight"
@@ -27,10 +27,25 @@ const items = [
     icon: Home,
   },
   {
-    title: "Integration Content",
+    title: "Integration Packages",
     url: "/dashboard/integration_content",
-    icon: Inbox,
+    icon: Package,
   },
+  {
+  title: "Message Mapping",
+  url: "/dashboard/message_mappings",
+  icon: Map,
+},
+  {
+  title: "Runtime Artifacts",
+  url: "/dashboard/runtime_artifacts",
+  icon: Loader,
+},
+  {
+  title: "Value Mappings",
+  url: "/dashboard/value_mappings",
+  icon: Map,
+},
   {
     title: "Message Processing Logs",
     url: "/dashboard/message_processing_logs",

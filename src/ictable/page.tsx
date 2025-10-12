@@ -4,61 +4,7 @@ import { columns, IntegrationPg } from "./columns"
 import { DataTable } from "./data-table"
 import React from "react"
 
-function getData(): IntegrationPg[] {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      date: "2025-09-15T14:48:00.000Z",
-      mode: "production",
-      modifiedby: "admin",
-      createdby: "admin",
-      shorttext: "This is a sample integration content",
-      resourceId: "res-12345",
-      name: "Integration flow",
-      version: "1.0.0",
 
-    },
-    {
-      id: "a4b1c2d3",
-      date: "2023-08-10T09:30:00.000Z",
-      mode: "edit",
-      modifiedby: "user1",
-      createdby: "user1",
-      shorttext: "This is a sample OData API",
-      resourceId: "res-67890",
-
-      name: "OData API",
-      version: "1.0.0",
-
-    },
-    {
-      id: "e5f6g7h8",
-      date: "2024-01-20T16:15:00.000Z",
-      mode: "production",
-      modifiedby: "user2",
-      createdby: "user2",
-      shorttext: "This is a sample value mapping",
-      resourceId: "res-54321",
-
-      name: "Value mapping",
-      version: "1.0.0",
-    },
-    {
-      id: "i9j0k1l2",
-      date: "2023-11-05T11:00:00.000Z",
-      mode: "edit",
-      modifiedby: "user3",
-      createdby: "user3",
-      shorttext: "This is a sample runtime artifacts",
-      resourceId: "res-98765",
-      name: "Runtime Artifacts",
-      version: "1.0.0",
-    },
-    
-    // ...
-  ]
-}
 
 export default  function DemoicPage() {
 
@@ -66,21 +12,10 @@ export default  function DemoicPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const username = localStorage.getItem('username');
-        const token = localStorage.getItem('token');
+
         
-        const response = await fetch('/api/integration-design-packages', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username: username,
-            token: token,
-          }),
-        });
         
-        const xmlText = await response.text();  
+        const xmlText = localStorage.getItem('integrationpackages') || ''; 
         console.log('API Response (XML):of content', xmlText);
         
         // Parse XML and extract runtime artifacts data
@@ -114,7 +49,7 @@ export default  function DemoicPage() {
           });
         }
         // store started and error count in localstorage
-        localStorage.setItem('total', total.toString());
+        //localStorage.setItem('total', total.toString());
 
           
 

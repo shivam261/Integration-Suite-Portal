@@ -123,20 +123,20 @@ export function ModifyTab() {
             </CardHeader>
             <CardContent className="grid gap-6">
               <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-name">Client ID</Label>
-                <Input id="tabs-demo-name" placeholder="Enter Client ID" value={client_id} onChange={(e) => setClientId(e.target.value)} />
+                <Label htmlFor="ClientID">Client ID</Label>
+                <Input id="ClientID" placeholder="Enter Client ID" value={client_id} onChange={(e) => setClientId(e.target.value)} />
               </div>
               <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-username">Client Secret</Label>
-                <Input id="tabs-demo-username" placeholder="Enter Client Secret" type="password" value={client_secret} onChange={(e) => setClientSecret(e.target.value)} />
+                <Label htmlFor="ClientSecret">Client Secret</Label>
+                <Input id="ClientSecret" placeholder="Enter Client Secret" type="password" value={client_secret} onChange={(e) => setClientSecret(e.target.value)} />
               </div>
                  <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-name">Token Url</Label>
-                <Input id="tabs-demo-name" placeholder="Enter Token Url" value={token_url} onChange={(e) => setTokenUrl(e.target.value)} />
+                <Label htmlFor="TokenUrl">Token Url</Label>
+                <Input id="TokenUrl" placeholder="Enter Token Url" value={token_url} onChange={(e) => setTokenUrl(e.target.value)} />
               </div>
               <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-username">Tenant Url</Label>
-                <Input id="tabs-demo-username" placeholder="Enter Tenant Url" type="text" value={tenant_url} onChange={(e) => setTenantUrl(e.target.value)} />
+                <Label htmlFor="TenantUrl">Tenant Url</Label>
+                <Input id="TenantUrl" placeholder="Enter Tenant Url" type="text" value={tenant_url} onChange={(e) => setTenantUrl(e.target.value)} />
               </div>
             </CardContent>
             <CardFooter>
@@ -155,12 +155,12 @@ export function ModifyTab() {
             </CardHeader>
             <CardContent className="grid gap-6">
               <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-current">Username</Label>
-                <Input id="tabs-demo-current" placeholder="Enter Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                <Label htmlFor="Usernamee">Username</Label>
+                <Input id="Usernamee" placeholder="Enter Username" value={username} onChange={(e) => setUsername(e.target.value)} />
               </div>
               <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-new">Password</Label>
-                <Input id="tabs-demo-new" type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <Label htmlFor="Passworde">Password</Label>
+                <Input id="Passworde" type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
 
 

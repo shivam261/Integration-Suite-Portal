@@ -191,7 +191,7 @@ export default function DashboardComponent() {
       const username = localStorage.getItem('username');
       const token = localStorage.getItem('token');
       try {
-        const response = await fetch('http://localhost:8000/message_processing_logs/get_log_count', {
+        const response = await fetch('http://localhost:8000/message_processing_logs/get_count', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
