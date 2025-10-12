@@ -83,17 +83,10 @@ return (
 export function NavbarDemo() {
   const navItems = [
     {
-      name: "Features",
-      link: "#features",
+      name: "SAPians",
+      link: "/",
     },
-    {
-      name: "Team",
-      link: "#team",
-    },
-    {
-      name: "Contact",
-      link: "#contact",
-    },
+   
   ];
  
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

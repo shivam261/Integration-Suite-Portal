@@ -18,10 +18,125 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { MobileNav, MobileNavHeader, MobileNavMenu, MobileNavToggle, Navbar, NavbarButton, NavbarLogo, NavBody, NavItems } from "@/components/ui/resizable-navbar";
+export function NavbarDemo() {
+  const navItems = [
+    {
+      name: "SAPians",
+      link: "/",
+    },
+   
+  ];
+ 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+ 
+  return (
+    <div className="absolute w-full top-10">
+      <Navbar>
+        {/* Desktop Navigation */}
+        <NavBody>
+          <NavbarLogo />
+          <NavItems items={navItems} />
+          <div className="flex items-center gap-4">
+            <NavbarButton variant="secondary" href="/login">User Authentication </NavbarButton>
 
+          </div>
+        </NavBody>
+ 
+        {/* Mobile Navigation */}
+        <MobileNav>
+          <MobileNavHeader>
+            <NavbarLogo />
+            <MobileNavToggle
+              isOpen={isMobileMenuOpen}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            />
+          </MobileNavHeader>
+ 
+          <MobileNavMenu
+            isOpen={isMobileMenuOpen}
+            onClose={() => setIsMobileMenuOpen(false)}
+          >
+            {navItems.map((item, idx) => (
+              <a
+                key={`mobile-link-${idx}`}
+                href={item.link}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="relative text-neutral-600 dark:text-neutral-300"
+              >
+                <span className="block">{item.name}</span>
+              </a>
+            ))}
+            <div className="flex w-full flex-col gap-4">
+              <NavbarButton
+                onClick={() => setIsMobileMenuOpen(false)}
+                variant="primary"
+                className="w-full"
+              >
+                Login
+              </NavbarButton>
+              <NavbarButton
+                onClick={() => setIsMobileMenuOpen(false)}
+
+                variant="primary"
+                className="w-full"
+              >
+                Book a call
+              </NavbarButton>
+            </div>
+          </MobileNavMenu>
+        </MobileNav>
+      </Navbar>
+
+ 
+      {/* Navbar */}
+    </div>
+  );
+} 
 export function TabsDemo() {
+  const [username, setUsername] = useState<string >("");
+  const [password, setPassword] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
+  const router = useRouter();
+  
+  const handleLogin = async () => {
+    try {
+      setIsLoading(true);
+      setError('');
+
+      const response = await fetch('http://localhost/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      });
+
+      if (response.status === 200) {
+        const data = await response.json();
+        localStorage.setItem('username', username);
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+        }
+        router.push('/dashboard');
+      } else {
+        const errorData = await response.json().catch(() => ({ message: 'Login failed' }));
+        setError(errorData.message || `Login failed with status ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setError('Network error. Please check your connection and try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div className="flex w-1150 max-w-sm flex-col z-40 gap-6">
+
       <Tabs defaultValue="account">
         <TabsList>
           <TabsTrigger value="account">Login</TabsTrigger>
@@ -37,16 +152,16 @@ export function TabsDemo() {
             </CardHeader>
             <CardContent className="grid gap-6">
               <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-name">Username</Label>
-                <Input id="tabs-demo-name" defaultValue="Pedro Duarte" />
+                <Label htmlFor="username" >Username</Label>
+                <Input id="username" placeholder="Enter your username" value={username} onChange={(e) => setUsername(e.target.value)} />
               </div>
               <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-username">Password</Label>
-                <Input id="tabs-demo-username" defaultValue="@peduarte" type="password" />
+                <Label htmlFor="password">Password</Label>
+                <Input id="password" placeholder="Enter your password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
             </CardContent>
             <CardFooter>
-              <Button>Login</Button>
+              <Button onClick={handleLogin} className="w-full">Login</Button>
             </CardFooter>
          
           </Card>
@@ -75,7 +190,7 @@ export function TabsDemo() {
 
             </CardContent>
             <CardFooter>
-              <Button>Register</Button>
+              <Button><a href="/login" className="w-full">Register</a></Button>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -86,6 +201,7 @@ export function TabsDemo() {
 export function GridBackgroundDemo() {
   return (
     <div className="relative flex flex-row h-[50rem] w-full items-center justify-center bg-white dark:bg-black">
+      <NavbarDemo />
       <div
         className={cn(
           "absolute inset-0",

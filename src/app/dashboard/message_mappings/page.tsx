@@ -1,8 +1,22 @@
+
 "use client";
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { HoveredLink, Menu, MenuItem, ProductItem } from "@/components/ui/navbar-menu";
+import { cn } from "@/lib/utils";
+import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 
+import {
+  IconArrowWaveRightUp,
+  IconBoxAlignRightFilled,
+  IconBoxAlignTopLeft,
+  IconClipboardCopy,
+  IconFileBroken,
+  IconSignature,
+  IconTableColumn,
+} from "@tabler/icons-react";
+import { RuntimeArtifacts } from "@/radtable/columns";
+import DemoPage from "@/radtable/page";
 
 
 const Skeleton = () => (
@@ -12,6 +26,12 @@ const Skeleton = () => (
 export default function DashboardComponent() {
 
   const router = useRouter();
+  const [username, setUsername] = useState<string>('');
+  const [token, setToken] = useState<string>('');
+  const[started,setStarted]=useState<number>(0);
+  const[error,setError]=useState<number>(0);
+  const[mm,setMm]=useState<number>(0);
+  const[tic,setTic]=useState<string>('');
 
 
 
@@ -54,20 +74,14 @@ export default function DashboardComponent() {
   },[]) */
 
   return (
-
-<>
-
-      {/* prepare flex box with 2 rows . in forst row write welcome to integration dashboard . in 2 row keep skeleton for 4 cards */}
-<div className="flex flex-col items-center justify-center space-y-4 mt-[20%]  ">
-  <h1 className="text-5xl font-bold text-center  whitespace-nowrap">Welcome to Integration Dashboard</h1>
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-6xl px-4">
-    <Skeleton />
-    <Skeleton />
-    <Skeleton />
-    <Skeleton />
-  </div>
-</div>
+   <>
+      
+      {/* Main content container with top padding for navbar */}
+      <div className="pt-20 px-4 mt-11 ">
+        {/* Flex row container */}
+    
+      </div>
+        <DemoPage/>
 </>
-
   );
 }

@@ -138,7 +138,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
               className="absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800"
             />
           )}
-          <span className="relative z-20 text-lg">{item.name}</span>
+          <span className="relative z-20 text-4xl font-bold">{item.name}</span>
         </a>
       ))}
     </motion.div>
@@ -237,12 +237,12 @@ export const NavbarLogo = () => {
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
       <img
-        src="https://assets.aceternity.com/logo-dark.png"
+        src="https://upload.wikimedia.org/wikipedia/commons/9/9f/LTIMindtree_Logo.svg"
         alt="logo"
-        width={30}
-        height={30}
+        width={200}
+        height={200}
       />
-      <span className="font-medium text-4xl text-black dark:text-white">SAPians</span>
+
     </a>
   );
 };

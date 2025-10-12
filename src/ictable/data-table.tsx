@@ -44,6 +44,7 @@ export function DataTable<TData, TValue>({
   )
     const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
+     const [rowSelection, setRowSelection] = React.useState({})
   const table = useReactTable({
     data,
     columns,
@@ -54,10 +55,12 @@ export function DataTable<TData, TValue>({
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
     getFilteredRowModel: getFilteredRowModel(),
+    onRowSelectionChange: setRowSelection,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
+       rowSelection,
     },
   })
 
@@ -162,6 +165,7 @@ export function DataTable<TData, TValue>({
         </TableBody>
       </Table>
     </div>
+
     <div className="flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"
@@ -169,7 +173,7 @@ export function DataTable<TData, TValue>({
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          Previous
+          Previouss
         </Button>
         <Button
           variant="outline"

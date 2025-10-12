@@ -116,7 +116,7 @@ export default function DashboardmmComponent() {
   }
 ];
 
-  useEffect(() => {
+/*   useEffect(() => {
     // Get data from localStorage
     const storedUsername = localStorage.getItem('username');
     const storedToken = localStorage.getItem('token');
@@ -179,7 +179,7 @@ export default function DashboardmmComponent() {
         setMm(localStorage.getItem("totalmm") || "0");
     setUsername(storedUsername);
     setToken(storedToken);
-  }, []);
+  }, []); */
 
   return (
     <div className="relative w-full min-h-screen">

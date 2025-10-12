@@ -4,6 +4,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import "../globals.css";
 import { cn } from "@/lib/utils";
+import { Navbar } from "@/components/navigation_bar";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,13 +26,17 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen bg-white ">
+    /* i want gradient in lower half with some curves */
+    <div className="min-h-screen bg-white  ">
 
           <SidebarProvider>
       <AppSidebar />
       <main>
+     <div className="relative w-full min-h-screen justify-center-safe ml-20 ">
+    <div className=" fixed top-[-36] left-[-90] w-[110%] h-35 bg-gradient-to-b from-zinc-100 to-zinc-100 z-[1] rounded-b-3xl shadow-lg">  <Navbar className="top-2 " /></div>
 
         {children}
+      </div>
       </main>
     </SidebarProvider>
     </div>
