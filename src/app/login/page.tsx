@@ -96,6 +96,7 @@ export function NavbarDemo() {
 export function TabsDemo() {
   const [username, setUsername] = useState<string >("");
   const [password, setPassword] = useState<string>("");
+  const [organization, setOrganization] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const router = useRouter();
@@ -105,7 +106,7 @@ export function TabsDemo() {
       setIsLoading(true);
       setError('');
 
-      const response = await fetch('http://localhost/auth/login', {
+      const response = await fetch('http://localhost:8000/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -119,6 +120,8 @@ export function TabsDemo() {
       if (response.status === 200) {
         const data = await response.json();
         localStorage.setItem('username', username);
+        localStorage.setItem('password', password);
+        localStorage.setItem('organization', data.organization);
         if (data.token) {
           localStorage.setItem('token', data.token);
         }
@@ -134,6 +137,38 @@ export function TabsDemo() {
       setIsLoading(false);
     }
   };
+  const handleRegister = async () => {
+    try {
+      setIsLoading(true);
+      setError('');
+
+      const response = await fetch('http://localhost:8000/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+          organization: organization,
+        }),
+      });
+
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log('Registration successful:', data);
+        router.push('/login');
+      } else {
+        const errorData = await response.json().catch(() => ({ message: 'Registration failed' }));
+        setError(errorData.message || `Registration failed with status ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      setError('Network error. Please check your connection and try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  }
   return (
     <div className="flex w-1150 max-w-sm flex-col z-40 gap-6">
 
@@ -176,21 +211,21 @@ export function TabsDemo() {
             </CardHeader>
             <CardContent className="grid gap-6">
               <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-current">Username</Label>
-                <Input id="tabs-demo-current" type="email" />
+                <Label htmlFor="NewUsername">Username</Label>
+                <Input id="NewUsername" placeholder="enter username" value={username} onChange={(e) => setUsername(e.target.value)} />
               </div>
               <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-new">Password</Label>
-                <Input id="tabs-demo-new" type="password" />
+                <Label htmlFor="NewPassword">Password</Label>
+                <Input id="NewPassword" type="password" placeholder="enter password 8 digits" value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
               <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-new">Organization</Label>
-                <Input id="tabs-demo-new" type="text" />
+                <Label htmlFor="NewOrganization">Organization</Label>
+                <Input id="NewOrganization" type="text" placeholder="enter organization" value={organization} onChange={(e) => setOrganization(e.target.value)} />
               </div>
 
             </CardContent>
             <CardFooter>
-              <Button><a href="/login" className="w-full">Register</a></Button>
+              <Button onClick={handleRegister} >Register</Button>
             </CardFooter>
           </Card>
         </TabsContent>

@@ -19,8 +19,8 @@ export function Navbar({ className }: { className?: string }) {
       try {
         // Get organization from localStorage or use a default
         const organization = localStorage.getItem('organization') || 'default-org';
-        
-        const response = await fetch(`/api/users?organization=${organization}`, {
+
+        const response = await fetch(`http://localhost:8000/auth/get_users_same_organization?organization=${organization}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -29,10 +29,10 @@ export function Navbar({ className }: { className?: string }) {
 
         if (response.ok) {
           const result = await response.json();
-          console.log('Users data:', result);
+          
           
           if (result.success) {
-            setUsers(result.data);
+            setUsers(result.users);
           } else {
             console.error('Failed to fetch users:', result.message);
           }
@@ -43,8 +43,11 @@ export function Navbar({ className }: { className?: string }) {
         console.error('Error fetching users:', error);
       }
     };
+    if(localStorage.getItem('token')){   
+      fetchUsers();
+    }
 
-    
+
   },[])   
   return (
     <div
@@ -98,7 +101,7 @@ export function Navbar({ className }: { className?: string }) {
               <HoveredLink key={user.username} href="#">{user.username}</HoveredLink>
             ))}
 
-            <HoveredLink href="/dashboard/settings"><span className="text-blue-900 font-bold">ADD SUBACCOUNT</span></HoveredLink>
+            <HoveredLink href="/dashboard/manage"><span className="text-blue-900 font-bold">ADD SUBACCOUNT</span></HoveredLink>
           </div>
         </MenuItem>
       </Menu>

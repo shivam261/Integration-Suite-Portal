@@ -16,101 +16,95 @@ import {
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-interface User {
-  username: string;
-  password: string;
-}
-function Navbar({ className }: { className?: string }) {
-  const [active, setActive] = useState<string | null>(null);
-  const [users, setUsers] = useState<User[] | null>([{ username: "shviam", password: "shivam" },{ username: "john", password: "doe" },{ username: "jane", password: "doe" }]);    
-  return (
-    <div
-      className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50 ", className)}
-    >
-      <Menu setActive={setActive}>
-        <MenuItem setActive={setActive} active={active} item="Features">
-          <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="#">Deployment</HoveredLink>
-            <HoveredLink href="#">Creation</HoveredLink>
-            <HoveredLink href="#">Modification</HoveredLink>
-            <HoveredLink href="#">download artifacts</HoveredLink>
-            <HoveredLink href="#">Send Notification</HoveredLink>
-          </div>
-        </MenuItem>
-        <MenuItem setActive={setActive} active={active} item="Services">
-          <div className="  text-sm grid grid-cols-1gap-10 p-4 space-y-10">
-            <ProductItem
-              title="Integration Content"
-              href="https://algochurn.com"
-              src="https://assets.aceternity.com/demos/algochurn.webp"
-              description="Integration content enables you to read, update, deploy, or undeploy integration artifacts (such as integration flows) on a tenant.
- "
-            />
-            <ProductItem
-              title="Security Content"
-              href="https://tailwindmasterkit.com"
-              src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
-              description="Security content enables you to get, write or delete various security content.  "
-            />
-            <ProductItem
-              title="Message Processing Logs"
-              href="#"
-              src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.51.31%E2%80%AFPM.png"
-              description="enable you to store data about the messages processed on a tenant."
-            />
-
-          </div>
-        </MenuItem>
-
-        <MenuItem setActive={setActive} active={active} item="Account">
-          <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/">Logout</HoveredLink>
-            <HoveredLink href="#">Settings</HoveredLink>
-            <HoveredLink href="#">Profile</HoveredLink>
-          </div>
-        </MenuItem>
-                <MenuItem setActive={setActive} active={active} item="Switch Account">
-          <div className="flex flex-col space-y-4 text-sm">
-            {users && users.map((user) => (
-              <HoveredLink key={user.username} href="#">{user.username}</HoveredLink>
-            ))}
-
-            <HoveredLink href="/dashboard/settings"><span className="text-blue-900 font-bold">ADD SUBACCOUNT</span></HoveredLink>
-          </div>
-        </MenuItem>
-      </Menu>
-    </div>
-  );
-}
 
 const Skeleton = () => (
   <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"></div>
 );
- function FieldInput() {
-  return (
-    <div className="w-full max-w-md">
-      <FieldSet>
-        <FieldGroup>
-          <Field>
-            <FieldLabel htmlFor="username">Username</FieldLabel>
-            <Input id="username" type="text" placeholder="Max Leiter" />
-            <FieldDescription>
-              Choose a unique username for your account.
-            </FieldDescription>
-          </Field>
-          <Field>
-            <FieldLabel htmlFor="password">Password</FieldLabel>
-            <FieldDescription>
-              Must be at least 8 characters long.
-            </FieldDescription>
-            <Input id="password" type="password" placeholder="********" />
-          </Field>
-        </FieldGroup>
-      </FieldSet>
-    </div>
-  )
-}
+
 export function ModifyTab() {
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [client_id, setClientId] = useState<string>('');
+  const [client_secret, setClientSecret] = useState<string>('');
+  const [token_url, setTokenUrl] = useState<string>('');
+  const [tenant_url, setTenantUrl] = useState<string>('');
+  
+  const [error, setError] = useState<string | null>(null);
+  const handleCredentialsSubmit = async () => {
+    const org = localStorage.getItem('organization');
+    const usr= localStorage.getItem('username');
+    const pwd= localStorage.getItem('password');
+       try {
+
+      setError('');
+
+      const response = await fetch('http://localhost:8000/auth/update_user', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: usr,
+          password: pwd,
+          client_id: client_id,
+          client_secret: client_secret,
+          token_url: token_url,
+          tenant_url: tenant_url,
+          organization: org
+        }),
+      });
+
+      if (response.status === 200) {
+        const data = await response.json();
+
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+        }
+
+      } else {
+        const errorData = await response.json().catch(() => ({ message: 'Login failed' }));
+        setError(errorData.message || `Login failed with status ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setError('Network error. Please check your connection and try again.');
+    } finally {
+
+    }
+
+  }
+  const handleRegister = async () => {
+    try {
+
+      setError('');
+      const organization = localStorage.getItem('organization');
+      const response = await fetch('http://localhost:8000/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+          organization: organization,
+        }),
+      });
+
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log('Registration successful:', data);
+
+      } else {
+        const errorData = await response.json().catch(() => ({ message: 'Registration failed' }));
+        setError(errorData.message || `Registration failed with status ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      setError('Network error. Please check your connection and try again.');
+    } finally {
+
+    }
+  }
   return (
     <div className="flex w-1150 max-w-sm flex-col z-40 gap-6">
 
@@ -130,23 +124,23 @@ export function ModifyTab() {
             <CardContent className="grid gap-6">
               <div className="grid gap-3">
                 <Label htmlFor="tabs-demo-name">Client ID</Label>
-                <Input id="tabs-demo-name" defaultValue="Pedro Duarte" />
+                <Input id="tabs-demo-name" placeholder="Enter Client ID" value={client_id} onChange={(e) => setClientId(e.target.value)} />
               </div>
               <div className="grid gap-3">
                 <Label htmlFor="tabs-demo-username">Client Secret</Label>
-                <Input id="tabs-demo-username" defaultValue="@peduarte" type="password" />
+                <Input id="tabs-demo-username" placeholder="Enter Client Secret" type="password" value={client_secret} onChange={(e) => setClientSecret(e.target.value)} />
               </div>
                  <div className="grid gap-3">
                 <Label htmlFor="tabs-demo-name">Token Url</Label>
-                <Input id="tabs-demo-name" defaultValue="Pedro Duarte" />
+                <Input id="tabs-demo-name" placeholder="Enter Token Url" value={token_url} onChange={(e) => setTokenUrl(e.target.value)} />
               </div>
               <div className="grid gap-3">
                 <Label htmlFor="tabs-demo-username">Tenant Url</Label>
-                <Input id="tabs-demo-username" defaultValue="@peduarte" type="text" />
+                <Input id="tabs-demo-username" placeholder="Enter Tenant Url" type="text" value={tenant_url} onChange={(e) => setTenantUrl(e.target.value)} />
               </div>
             </CardContent>
             <CardFooter>
-              <Button onClick={() => {}}>ADD</Button>
+              <Button onClick={handleCredentialsSubmit}>ADD Credentials</Button>
             </CardFooter>
          
           </Card>
@@ -162,20 +156,17 @@ export function ModifyTab() {
             <CardContent className="grid gap-6">
               <div className="grid gap-3">
                 <Label htmlFor="tabs-demo-current">Username</Label>
-                <Input id="tabs-demo-current" type="email" />
+                <Input id="tabs-demo-current" placeholder="Enter Username" value={username} onChange={(e) => setUsername(e.target.value)} />
               </div>
               <div className="grid gap-3">
                 <Label htmlFor="tabs-demo-new">Password</Label>
-                <Input id="tabs-demo-new" type="password" />
+                <Input id="tabs-demo-new" type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
-              <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-new">Organization</Label>
-                <Input id="tabs-demo-new" type="text" />
-              </div>
+
 
             </CardContent>
             <CardFooter>
-              <Button>ADD ACCOUNT</Button>
+              <Button onClick={handleRegister}>ADD ACCOUNT</Button>
             </CardFooter>
           </Card>
         </TabsContent>
