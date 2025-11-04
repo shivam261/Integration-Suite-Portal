@@ -42,7 +42,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
          Features 
         </h2>
         <p className="text-black dark:text-neutral-300 text-xl md:text-2xl max-w-sm">
-SAP Cloud Integration supports end-to-end process integration by enabling you to access and manage entities that are relevant when developing and executing an integration scenario
+ Cloud Integration supports end-to-end process integration by enabling you to access and manage entities that are relevant when developing and executing an integration scenario
         </p>
       </div>
 

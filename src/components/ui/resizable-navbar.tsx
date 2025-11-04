@@ -237,11 +237,12 @@ export const NavbarLogo = () => {
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/9/9f/LTIMindtree_Logo.svg"
+        src="/logo.svg"
         alt="logo"
         width={200}
-        height={200}
+        height={400}
       />
+
 
     </a>
   );

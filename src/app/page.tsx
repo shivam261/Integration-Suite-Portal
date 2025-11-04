@@ -66,7 +66,7 @@ return (
       }}
       className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-neutral-700 dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto"
     >
-      Manage your SAP Cloud Integration with ease. Access{" "}
+      Manage your  Cloud Integration with ease. Access{" "}
       <br />
       <Highlight className="text-black dark:text-white">
         Odata API's for Cloud Integration
@@ -83,7 +83,7 @@ return (
 export function NavbarDemo() {
   const navItems = [
     {
-      name: "SAPians",
+      name: "Integration Platform",
       link: "/",
     },
    
@@ -100,7 +100,7 @@ export function NavbarDemo() {
           <NavItems items={navItems} />
           <div className="flex items-center gap-4">
             <NavbarButton variant="secondary" href="/login">Login</NavbarButton>
-            <NavbarButton variant="primary" href="#book-a-call">Register</NavbarButton>
+            <NavbarButton variant="primary" href="/login">Register</NavbarButton>
           </div>
         </NavBody>
  
@@ -292,20 +292,25 @@ const DummyContent = () => {
       <div className=" h-px w-full bg-neutral-200 dark:bg-neutral-800" />
       <TimelineDemo />
       <div className="flex flex-col items-center justify-center mt-16 mb-16">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold mb-4 text-black dark:text-white">
-            Contact us At 
-          </h2>
-          <p className="text-neutral-600 dark:text-neutral-400 mb-8">
-            Shivam.tripathi2@ltimindtree.com 
+        <img 
+        src='/logo.svg'
+        width={500}
+        height={400}
+        alt="Logo"
+      />
+      <div className="text-center">
+        <h2 className="text-3xl font-bold mb-4 text-black dark:text-white">
+          Contact me At
+        </h2>
+          <p  className="text-black dark:text-neutral-400 mb-8 text-2xl">
+            Shivam1705of@gmail.com
           </p>
 
-          <button className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition">
-            Get in Touch 
-          </button>
-          <p className="text-neutral-600 dark:text-neutral-400 mb-8">
-          Address : LTI Mindtree, Navi Mumbai, Maharashtra, India - 400709
-          SAPians 
+          <a href="mailto:Shivam1705of@gmail.com" className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition">
+            Get in Touch
+          </a>
+          <p className="text-black dark:text-neutral-400 mb-8 text-xl m-3">
+            Mobile number : 8224966690
           </p>
         </div>
 
