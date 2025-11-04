@@ -1,4 +1,4 @@
-# 🌟 SAPians Integration Suite Portal
+# 🌟  Integration Suite Portal
 
 <div align="center">
 
@@ -17,7 +17,7 @@
 
 ## 🎯 Overview
 
-SAPians Integration Suite Portal is a comprehensive dashboard for managing SAP Cloud Integration content. Built with modern React ecosystem tools, it provides a seamless experience for developers and administrators to manage integration packages, runtime artifacts, value mappings, and message processing logs.
+ Integration Suite Portal is a comprehensive dashboard for managing  Cloud Integration content. Built with modern React ecosystem tools, it provides a seamless experience for developers and administrators to manage integration packages, runtime artifacts, value mappings, and message processing logs.
 
 ## ✨ Features
 
@@ -160,7 +160,7 @@ src/
 ### Environment Variables
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:8000
-NEXT_PUBLIC_APP_NAME=SAPians Integration Portal
+NEXT_PUBLIC_APP_NAME= Integration Portal
 ```
 
 ### Tailwind Configuration
@@ -221,7 +221,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**Built with ❤️ by the SAPians Team**
+**Built with ❤️ by Shivam Tripathi**
 
 [⭐ Star this repo](https://github.com/shivam261/Integration-Suite-Portal) • [🐛 Report Bug](https://github.com/shivam261/Integration-Suite-Portal/issues) • [✨ Request Feature](https://github.com/shivam261/Integration-Suite-Portal/issues)
 

@@ -81,7 +81,7 @@ export function NavbarDemo() {
                 variant="primary"
                 className="w-full"
               >
-                Book a call
+                Register
               </NavbarButton>
             </div>
           </MobileNavMenu>
@@ -235,7 +235,7 @@ export function TabsDemo() {
 }
 export function GridBackgroundDemo() {
   return (
-    <div className="relative flex flex-row h-[50rem] w-full items-center justify-center bg-white dark:bg-black">
+    <div className="relative flex flex-col md:flex-row h-[50rem] w-full items-center justify-center bg-white dark:bg-black">
       <NavbarDemo />
       <div
         className={cn(
@@ -246,7 +246,7 @@ export function GridBackgroundDemo() {
         )}
       />
       {/* Radial gradient for the container to give a faded look */}
-      <div className="relative z-20 bg-gradient-to-b mr-8 from-neutral-200 to-neutral-500 bg-clip-text py-8 text-xl font-bold text-transparent sm:text-7xl -ml-32">
+      <div className="relative z-20 bg-gradient-to-b mr-8 from-neutral-200 to-neutral-500 bg-clip-text py-8  font-bold text-transparent md:text-7xl text-5xl -ml-32">
 
         Tripathi
         <br></br> Cloud Integration
