@@ -108,14 +108,14 @@ export function Navbar({ className }: { className?: string }) {
           <div className="  text-sm grid grid-cols-1gap-10 p-4 space-y-10">
             <ProductItem
               title="Integration Content"
-              href="https://algochurn.com"
+              href="#"
               src="https://assets.aceternity.com/demos/algochurn.webp"
               description="Integration content enables you to read, update, deploy, or undeploy integration artifacts (such as integration flows) on a tenant.
  "
             />
             <ProductItem
               title="Security Content"
-              href="https://tailwindmasterkit.com"
+              href="#"
               src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
               description="Security content enables you to get, write or delete various security content.  "
             />

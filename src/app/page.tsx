@@ -133,6 +133,7 @@ export function NavbarDemo() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 variant="primary"
                 className="w-full"
+                href="/login"
               >
                 Login
               </NavbarButton>
@@ -141,8 +142,9 @@ export function NavbarDemo() {
 
                 variant="primary"
                 className="w-full"
+                href="/login"
               >
-                Book a call
+                Register
               </NavbarButton>
             </div>
           </MobileNavMenu>

@@ -1,4 +1,5 @@
 "use client";
+import Image from 'next/image'
 import {
   Sidebar,
   SidebarContent,
@@ -77,17 +78,17 @@ export function AppSidebar() {
       href="#"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black "
     >
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/9/9f/LTIMindtree_Logo.svg"
+ <Image
+        src="/logo.svg"
         alt="logo"
         width={200}
-        height={200}
+        height={300}
       />
 
     </a>
         <h1 className=" flex flex-row justify-center mt-4 text-5xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
           
-            SAPIANS
+            Artifacts
         </h1>
       </SidebarMenuItem>
     </SidebarMenu>
