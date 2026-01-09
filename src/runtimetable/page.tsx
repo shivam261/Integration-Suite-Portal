@@ -51,7 +51,19 @@ export default  function RuntimeTable() {
         }
         // store started and error count in localstorage
         //localStorage.setItem('total', total.toString());
+        // make dummydata. and set it in artifactsData
+        for (let i = 1; i <= 50; i++) {
+          artifactsData.push({
+            id: `ID-${i}`,
+            name: `Artifact-${i}`,
+            version: `v${i}.0`,
+            status: i % 2 === 0 ? 'STARTED' : 'STOPPED',
+            type: i % 3 === 0 ? 'TypeA' : 'TypeB',
+            deployedBy: `User${i}`,
+            deployedOn: `2024-0${(i%9)+1}-15`
 
+          });
+        }
           
 
 

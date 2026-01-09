@@ -51,7 +51,18 @@ export default  function RuntimeTable() {
         //localStorage.setItem('total', total.toString());
 
           
-
+        // make dummydata. and set it in artifactsData
+        for (let i = 1; i <= 50; i++) {
+          artifactsData.push({
+            id: `ID-${i}`,
+            name: `Message-${i}`,
+            guid: `GUID-${i}`,
+            status: i % 2 === 0 ? 'Completed' : 'Error',
+            type: i % 3 === 0 ? 'TypeA' : 'TypeB',
+            loglevel: i % 2 === 0 ? 'Info' : 'Error',
+            pakageId: `Package-${i}`,
+          });
+        } 
 
         setArtifacts(artifactsData);
       } catch (error) {

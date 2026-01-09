@@ -23,6 +23,7 @@ export default  function DemoicPage() {
         const xmlDoc = parser.parseFromString(xmlText, "application/xml");
         const entries = xmlDoc.getElementsByTagName('m:properties');
         const artifactsData: IntegrationPg[] = [];
+        // make dummydata for testing
         var total=0;
         for (let i = 0; i < entries.length; i++) {
           const id = entries[i].getElementsByTagName('d:Id')[0]?.textContent || '';
@@ -53,7 +54,22 @@ export default  function DemoicPage() {
 
           
 
-
+        //  make dummydata. and set it in artifactsData
+        
+        for (let i = 1; i <= 50; i++) {
+          artifactsData.push({
+            id: `id-${i}`,
+            name: `Integration Package ${i}`,
+            date: `2023-10-${(i % 30) + 1}`,
+            mode: i % 2 === 0 ? 'Active' : 'Inactive',
+            modifiedby: `User ${i}`,
+            createdby: `Creator ${i}`,
+            shorttext: `This is a short description for Integration Package ${i}.`,
+            resourceId: `res-${i}`,
+            version: `v${i}.0`,
+          });
+        }
+        
         setArtifacts(artifactsData);
       } catch (error) {
         console.error('Error:', error);

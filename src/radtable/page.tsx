@@ -100,7 +100,18 @@ export default  function DemoPage() {
         // store started and error count in localstorage
         localStorage.setItem('started', started.toString());
         localStorage.setItem('error', error.toString());
-
+        // make the dummy data and set it in artifactsData
+        for (let i = 1; i <= 50; i++) {
+          artifactsData.push({
+            id: `ID-${i}`,
+            name: `Artifact-${i}`,      
+            date: new Date().toISOString(),
+            status: i % 2 === 0 ? 'success' : 'failed',
+            type: i % 3 === 0 ? 'Integration flow' : 'OData API',
+            version: '1.0.0',
+            deployedby: `User-${i}`,
+          });
+        }
 
         setArtifacts(artifactsData);
       } catch (error) {
