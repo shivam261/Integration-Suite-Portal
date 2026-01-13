@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+    environment {
+        SSH_KEY= "secret key"
+    }
+    stages {
+
+        stage('Install Dependencies') {
+            agent {
+                docker {
+                    image "node:24-alpine"
+                    reuseNode true
+                }
+            }
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Linting') {
+            agent {
+                docker {
+                    image "node:24-alpine"
+                    reuseNode true
+                }
+            }
+            steps {
+                sh 'npm run lint'
+            }
+        }
+        
+        stage('Build') {
+            agent {
+                docker {
+                    image "node:24-alpine"
+                    reuseNode true
+                }
+            }
+            steps {
+                sh 'npm run build'
+                sh 'echo build completed'
+            }
+        }
+    }
+    
+    post {
+
+        always {
+            cleanWs()
+        }
+    }
+}
